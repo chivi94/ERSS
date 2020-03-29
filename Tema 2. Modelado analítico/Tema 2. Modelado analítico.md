@@ -279,7 +279,6 @@ Centros:
 Número de clientes: No limitado (**Cola abierta**) vs limitado (**Cola cerrada**).
 
 Caracterización de la carga: Una clase de clientes vs múltiples clases de clientes.
-
 ## Un centro de servicio. Servidor único
 ### Cola Abierta
 #### Condiciones
@@ -319,7 +318,7 @@ lo que permitirá calcular el número medio de trabajos esperando en cola,
 <div style="text-align:center"><img src="imagenes/trabajosMediosColaAbierta.png"/></div>
 
 ### Cola cerrada
-### Condiciones
+#### Condiciones
 - Número limitado de clientes fijo y finito (N).
 - Clientes en una de dos situaciones
   - Estado tiempo de pensar (Z): Esperando a incorporarse a la cola.
@@ -335,7 +334,66 @@ El tiempo de respuesta R y la productividad X dependen del número de clientes N
 
 **Ley de tiempo de respuesta interactivo**: Cada usuario, por término medio, *T/(R+Z)* peticiones en el intervalo de tiempo T
 <div style="text-align:center"><img src="imagenes/respuestaInteractivoColaCerrada.png"/></div>
+
 ## Modelos de redes de colas. Una clase de trabajos
+### Análisis de redes abiertas
+ **Condiciones**
+- Distribución exponencial para tiempos de llegada y de servicio.
+- Todos los centros de servicio independiente de carga.
+- Una clase de clientes.
+- Red de colas separable (product-form)
+  
+**Entradas**
+- Intensidad de carga: *Lambda*.
+- Demandas de Servicio: V<sub>k</sub>, S<sub>k</sub>
+  
+**Evaluación del modelo**
+- Métricas de rendimiento:![](imagenes/metricasModelosAbiertas.png)
 
+**Métricas de rendimiento**
+- Throughput del sistema (estamos asumiendo equilibrio de flujos): *X = Lambda*.
+- El throughput del dispositivo k, X<sub>k</sub>, por la Ley del flujo forzado: *X<sub>k</sub> = Lambda * V<sub>k</sub>*.
+- Utilización del dispositivo k, U<sub>k</sub>, por la Ley de la Utilización: *U<sub>k</sub> =  X<sub>k</sub> * S<sub>k</sub> = X * V<sub>k</sub> * S<sub>k</sub> = Lambda * D<sub>k</sub>*.
+- Número de trabajos en el dispositivo k, Q<sub>k</sub>, aplicando la Ley de Little será:
+![](imagenes/trabajosModelosAbierta.png)
+- Tiempo de residencia de cada dispositivo R<sub>k</sub>(*Lambda*), sustituyendo *Q<sub>k</sub> = U<sub>k</sub> / (1 - U<sub>k</sub>)* en la ecuación *R<sub>k</sub> = S<sub>k</sub> + (1 + Q<sub>k</sub>)*, se obtiene,
+<div style="text-align:center"><img src="imagenes/tiempoResidenciaModelosAbiertas.png"/></div>
 
+- En los centros de demora el tiempo de residencia es igual al tiempo de servicio, *R<sub>k</sub> = S<sub>k</sub>* por lo tanto, *Q<sub>k</sub> = R<sub>k</sub> * X<sub>k</sub> = S<sub>k</sub> * X * V<sub>k</sub> = X * D<sub>k</sub> = U<sub>k</sub>*.
+- El número de trabajos en el sistema
+  <div style="text-align:center"><img src="imagenes/trabajosMediosModelosAbiertas.png"/></div>
+- El tiempo de respuesta del sistema
+ <div style="text-align:center"><img src="imagenes/tiempoRespuestaModelosAbiertas.png"/></div>
+ 
+#### Algoritmo de redes abiertas
+<div style="text-align:center"><img src="imagenes/algoritmoRedesAbiertas1.png"/></div>
+<div style="text-align:center"><img src="imagenes/algoritmoRedesAbiertas2.png"/></div>
 
+### Análisis de redes cerradas
+**Condiciones**
+- Distribución exponencial para tiempos de servicio.
+- Todos los centros de servicio independientes de carga.
+- Una clase de clientes.
+- Red de colas separable (product-form).
+- Nodo de demora. Sustituye a los nodos fuente y sumidero.
+  
+**Entradas**
+- Intensidad de la carga: N (número de usuarios o trabajos).
+- Demandas de Servicio: V<sub>k</sub>, S<sub>k</sub>.
+- Tiempo de pensar: Z.
+  
+**Evaluación del modelo**
+- Métricas de rendimiento: ![](imagenes/metricasModelosCerradas.png)
+
+#### Análisis del Valor Medio. Solución exacta.
+Algoritmo iterativo
+<div style="text-align:center"><img src="imagenes/analisiValorMedio1.png"/></div>
+<div style="text-align:center"><img src="imagenes/analisiValorMedio2.png"/></div>
+<div style="text-align:center"><img src="imagenes/analisiValorMedio3.png"/></div>
+
+#### Análisis del Valor Medio. Solución aproximada.
+<div style="text-align:center"><img src="imagenes/analisiValorMedioAprox1.png"/></div>
+<div style="text-align:center"><img src="imagenes/analisiValorMedioAprox2.png"/></div>
+<div style="text-align:center"><img src="imagenes/analisiValorMedioAprox3.png"/></div>
+<div style="text-align:center"><img src="imagenes/analisiValorMedioAprox4.png"/></div>
+<div style="text-align:center"><img src="imagenes/analisiValorMedioAprox5.png"/></div>
