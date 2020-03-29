@@ -281,7 +281,60 @@ Número de clientes: No limitado (**Cola abierta**) vs limitado (**Cola cerrada*
 Caracterización de la carga: Una clase de clientes vs múltiples clases de clientes.
 
 ## Un centro de servicio. Servidor único
+### Cola Abierta
+#### Condiciones
+- Número limitado de clientes.
+- Condición de estabilidad (se evitan colas infinitas): 
+  
+  ![](/imagenes/lambdamu.png)
+- Tasa de llegadas de transacciones independiente de la carga del sistema.
+- Distribuciones exponenciales
+  - Tiempo entre llegadas: El tiempo que transcurre hasta la próxima llegada es independiente del instante en el que se produjo la última.
+  - Tiempos de servicio: El tiempo residual que le queda a un cliente para finalizar su servicio es independiente del tiempo que ya lleva en servicio.
+- Centro de servicio independiente de carga.
+- Una clase de clientes.
 
+<!--imagen centrada-->
+<div style="text-align:center"><img src="imagenes/colaAbierta.png"/></div>
+
+Tiempo de residencia en cola: *R = S(Q+1)*
+- Longitud media de la cola Q. La espera estimada será de QS segundos.
+- Tiempo medio de servicio S. La espera estimada será de S segundos.
+
+Aplicando la Ley de Little, *Q = Lambda * R*, a la expresión anterior tenemos
+<div style="text-align:center"><img src="imagenes/littleColaAbierta.png"/></div>
+
+y por la ley de la utilización *U = Lambda * S*, se tiene
+<div style="text-align:center"><img src="imagenes/utilizacionColaAbierta.png"/></div>
+
+Partiendo de la expresión del tiempo de residencia, multiplicando por *Lambda* ambos lados de la ecuación, se obtiene:
+<div>
+  <span><img  src="imagenes/utilizacionColaAbierta.png"/></span>
+  <span><img  src="imagenes/quColaAbierta.png"/></span>
+</div>
+
+El tiempo de espera en cola estimado viene dado por *Q * S*,
+<div style="text-align:center"><img src="imagenes/tiempoEsperaColaAbierta.png"/></div>
+lo que permitirá calcular el número medio de trabajos esperando en cola,
+<div style="text-align:center"><img src="imagenes/trabajosMediosColaAbierta.png"/></div>
+
+### Cola cerrada
+### Condiciones
+- Número limitado de clientes fijo y finito (N).
+- Clientes en una de dos situaciones
+  - Estado tiempo de pensar (Z): Esperando a incorporarse a la cola.
+  - En el centro de servicio.
+- Centro de servicio independiente de carga.
+- Distribución exponencial para los tiempos de servicio.
+- Una clase de clientes.
+  <div style="text-align:center"><img src="imagenes/colaCerrada.png"/></div>
+
+El tiempo de respuesta R y la productividad X dependen del número de clientes N (Efecto retroalimentación)
+- A medida que el centro está más ocupado, la tasa a que se va ocupando se reduce.
+- Si los N clientes están en el sistema, no hay nuevas llegadas.
+
+**Ley de tiempo de respuesta interactivo**: Cada usuario, por término medio, *T/(R+Z)* peticiones en el intervalo de tiempo T
+<div style="text-align:center"><img src="imagenes/respuestaInteractivoColaCerrada.png"/></div>
 ## Modelos de redes de colas. Una clase de trabajos
 
 
