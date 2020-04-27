@@ -24,10 +24,10 @@ Dentro del diseño del rendimiento Software, tenemos que realizar las siguientes
   - En el rendimiento del sistema de software de terceros.
 
 Además, en el análisis del rendimiento tenemos 2 grupos grandes de tareas:
-- Análisis de escenarios.
-- Análisis del sistema.
+- Análisis de escenarios. El escenario es el elemento central para el modelado y el análisis del rendimiento. En esta parte se identifican las pseudo-operaciones (utilización/demanda de recursos).
+- Análisis del sistema. En esta parte se estiman los eventos que pueden ser procesados por unidad de tiempo, los factores que afectan al rendimiento y se determinan cuándo tendrán lugar los cuellos de botella.
 ### Métodos de la Ingeniería del Rendimiento Software
-Se incorporan actividades de modelado, análisis y evaluación del rendimiento en las distintas flases del ciclo de vida(p.ej, proceso unificado).
+Se incorporan actividades de modelado, análisis y evaluación del rendimiento en las distintas flases del ciclo de vida(p.ej, proceso unificado -> Fase de incepción, fase de elaboración, fase de contrucción, etc.).
 
 #### Ingeniería del rendimiento software según Smith
 Se lleva a cabo mediante un enfoque cuantitativo y sistemático para construir sistemas software que se ajusten a los requisitos de rendimiento, estando además enfocado en la arquitectura, el diseño y la implementación.
@@ -165,7 +165,4 @@ Duración: Especificación del tiempo transcurrido entre dos eventos.
 Intervalo: Rango de valores entre dos valores establecidos. Expresión del tipo *límite inferior...límite superior*.
 
 Time mark: Asigna una restricción de tiempo a un evento. Representado por una pequeña línea horizontal en el diagrama.
-#### Perfiles
 
-### OMG UML - MARTE
-### Anotaciones de Rendimiento con MARTE - PAM
