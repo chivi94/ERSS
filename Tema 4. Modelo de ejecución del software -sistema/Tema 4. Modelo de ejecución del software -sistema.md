@@ -146,3 +146,98 @@ Nodos diferenciados en el grafo de ejecución para el proceso que invoca y el pr
   - Se excluyen los retrasos por espera en cola.
 
 ###### **Elaboración del diagrama de secuencia para cada caso de uso**
+Uno por cada escenario clave para el rendimiento, en el que cada línea de vida del diagrama de secuencia representa un componente software. Cada interacción en el Diagrama de Secuencia se puede anotar con:
+- La marca temporal del momento en el que sucede la interacción.
+- El tamaño de los datos intercambiados.
+
+###### **Transformación Diagrama de Secuencia a Grafo de Ejecución** 
+- Escenarios
+  - Con un solo hilo de ejecución o flujo secuencial de control: Conversión directa.
+  - Con múltiples hilos de control y objetos distribuidos:
+    - Estimación de los tiempos de comunicación y sincronización.
+    - Identificación de operaciones que serializan.
+- Procedimiento
+  - Seguir la secuencia de mensajes en el escenario.
+  - Cada acción será un nodo básico en el grafo de ejecución.
+- Refinamiento
+  - Grafo de ejecución abreviado: Combina varias acciones relacionadas en un nodo básico.
+  - Nodos expansión: Expande una acción en varios nodos básicos.
+
+<div style="text-align:center"><img src="imagenes/transformacionesSecuencia1.png" /></div>
+<div style="text-align:center"><img src="imagenes/transformacionesSecuencia2.png" /></div>
+
+##### **Análisis del Modelo de Ejecución del Software**
+Obtención de parámetros para el modelo de ejecución del sistema (System Execution Model).
+
+Comprobación rápida de que el tiempo de respuesta en el mejor de los casos satisface los requisitos de rendimiento.
+
+Evaluación del impacto en el rendimiento de las alternativas arquitectónicas y de diseño.
+
+Identificación de las partes (elementos) del sistema críticas para facilitar la gestión del rendimiento.
+
+Procedimiento:
+- Cálculo de tiempos para cada nodo básico.
+- Reducción del grafo de ejecución.
+
+###### **Identificar las necesidades de recursos Software**
+- Identificar los recursos software necesarios
+  - Determinar el nivel del recurso(consumo relativo de CPU, acceso a la BD, mensajes de red, etc).
+- Nodo básico
+  - Especificar el mejor y peor caso o situación para la cantidad de servicio requerida por cada recurso software.
+  - Cada nodo básico tiene unos requisitos software específicos.
+- Asignar la demanda por cada unidad de servicio, recurso software considerado (software resource requests).
+
+###### **Determinar los requisitos de los recursos de computación**
+Relaciona los valores de los requisitos de recursos software con la utilización de los dispositivos en los recursos de computación. Se deben especificar los tipos, nº y características de los recursos necesarios. Debemos especificar los requisitos:
+- para cada uno de los recursos necesarios.
+- para cada paso del proceso en el grafo de ejecución.
+- Considerar el nº de repeticiones.
+- Considerar las probabilidades en las alternativas 'case'.
+  
+Al final se debe elaborar el cuadro de requisitos de computación del sistema (o del nodo de computación cuándo toque).
+
+###### **Estimación de las necesidades de computación**
+Elaborar y calcular la matriz de necesidades de procesamiento.
+- Establecer los dispositivos, nº y unidades de medida de servicio del sistema de computación.
+- Establecer la correspondencia entre los recursos software definidos y la utilización de los dispositivos del sistema de computación.
+- Establecer el tiempo de servicio de los dispositivos en el sistema de computación.
+
+Calcular los requisitos totales de los recursos del sistema para el grafo de ejecución.
+- Estimar las necesidades totales de recursos de computación para cada nodo.
+- Estimar las necesidades totales de computación usando las reglas de reducción.
+
+##### **Reducción del grafo de ejecución del Software**
+<span style="color: red;">1. Se deben identificar las estructuras básicas (Secuencial, repetición, condicional, nodos expandidos, paralelas).</span>
+
+<span style="color: red;">2. Calcular el tiempo para la estructura..</span>
+
+<span style="color: red;">3. Reemplazar la estructura por un nodo de computación (se le asigna el tiempo obtenido en el paso anterior)..</span>
+
+<span style="color: red;">4. Repetir hasta que el grafo quede reducido a un solo nodo.</span>
+
+<div style="text-align:center"><img src="imagenes/reduccion.png" /></div>
+
+###### **Reglas de reducción de grafos**
+Estructura secuencial: Tiempo calculado es la suma de todos los tiempos<div style="text-align:center"><img src="imagenes/tiempoCalculado.png" /></div>
+Estructura repetición (loop): Tiempo calculado es el tiempo del nodo por el factor de repetición del nodo <div style="text-align:center"><img src="imagenes/tiempoLoop.png" /></div>
+Estructura condicional (case nodes):
+- Camino más corto: mínimo de los tiempos de los nodos de ejecución condicionada (mejor tiempo, best case)<div style="text-align:center"><img src="imagenes/caminoCorto.png" /></div>
+- Camino más largo: máximo de los tiempos de los nodos de ejecución condicionada (pero tiempo, worst case)<div style="text-align:center"><img src="imagenes/caminoLargo.png" /></div>
+- Análisis de la media: suma de los tiempos ponderados (por su probabilidad de ejecución) de los nodos de ejecución condicionada. <div style="text-align:center"><img src="imagenes/analisisMedia.png" /></div>
+
+Nodos expandidos: Aplicar el algoritmo de forma recursiva al subgrafo y asignar el resultado obtenido al nodo expansión.
+
+###### **Análisis de estructuras paralelas**
+Sólo se consideran el mejor y el peor caso, en el que el mejor caso asume que el resto de caminos paralelos finalizan cuándo el camino más largo de los concurrentes ha finalizado (usa el camino más largo para hacer la estimación de la duración). Por otro lado, el peor caso asume una serialización de los caminos paralelos, dónde uno empieza cuando termina otro (usa la suma de los caminos para estimar la duración).
+
+<span style="color: red;">
+  <div>
+  Restricciones
+  </div>
+  <div>
+  - Cada nodo de ejecución solamente tendrá un nodo inicial.
+  </div>
+  <div>
+  - Todos los bucles del grafo serán bucles repetición.
+  </div>
+</span>
